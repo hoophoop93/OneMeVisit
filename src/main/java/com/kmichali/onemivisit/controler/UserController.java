@@ -3,6 +3,8 @@ package com.kmichali.onemivisit.controler;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,8 +20,9 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User findUser(@PathVariable("id") long id){
-        return userService.findById(id);
+    public ResponseEntity<User> findUser(@PathVariable("id") long id){
+        User user = userService.findById(id);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -39,6 +39,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Visit> visitList;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Role> roleList;
+
     public long getId() {
         return id;
     }
@@ -111,6 +114,14 @@ public class User {
         this.visitList = visitList;
     }
 
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -120,6 +131,10 @@ public class User {
                 ", pesel='" + pesel + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                ", visitList=" + visitList +
+                ", roleList=" + roleList +
                 '}';
     }
 }

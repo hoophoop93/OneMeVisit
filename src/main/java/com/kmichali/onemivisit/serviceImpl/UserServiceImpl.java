@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.serviceImpl;
 
+import com.kmichali.onemivisit.config.CustomUser;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.repository.UserRepository;
 import com.kmichali.onemivisit.service.UserService;
@@ -14,8 +15,7 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
-@Service(value = "userService")
-@Transactional
+@Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
@@ -64,12 +64,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
      * @throws UsernameNotFoundException No user found
      */
     @Override
-    public UserDetails loadUserByUsername(String pesel) throws UsernameNotFoundException {
+    public CustomUser loadUserByUsername(String pesel) throws UsernameNotFoundException {
         User user = userRepository.findByPesel(pesel);
+        CustomUser customUser = new CustomUser(user);
         if(user == null){
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new UsernameNotFoundException("Invalid pesel or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getPesel(),user.getPassword(),getAuthorityList());
+        return customUser;
     }
 
     private List<SimpleGrantedAuthority> getAuthorityList(){
