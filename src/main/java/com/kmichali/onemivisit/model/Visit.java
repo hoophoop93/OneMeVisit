@@ -1,11 +1,14 @@
 package com.kmichali.onemivisit.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="visits")
-public class Visit {
+public class Visit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Visit {
     @Column(name="registration_date")
     private Date registrationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
@@ -68,13 +71,4 @@ public class Visit {
         this.registrationDate = registrationDate;
     }
 
-    @Override
-    public String toString() {
-        return "Visit{" +
-                "id=" + id +
-                ", visitDate=" + visitDate +
-                ", visitHour='" + visitHour + '\'' +
-                ", registrationDate=" + registrationDate +
-                '}';
-    }
 }

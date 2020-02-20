@@ -1,22 +1,23 @@
 package com.kmichali.onemivisit.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kmichali.onemivisit.utils.AuthorityType;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="role")
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="role")
-    private String roleName;
+    @Enumerated(EnumType.STRING)
+    private AuthorityType roleName;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
@@ -28,11 +29,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getRoleName() {
+    public AuthorityType getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(AuthorityType roleName) {
         this.roleName = roleName;
     }
 

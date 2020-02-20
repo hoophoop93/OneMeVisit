@@ -1,13 +1,19 @@
 package com.kmichali.onemivisit.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +32,13 @@ public class User {
     private String phoneNumber;
 
     @Column(name="password")
-    @JsonIgnore
     private String password;
 
     @Column(name="email")
     private String email;
+
+    @Column(name="username")
+    private String username;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="address_id")
@@ -39,7 +47,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Visit> visitList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Role> roleList;
 
     public long getId() {
@@ -98,6 +106,14 @@ public class User {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -120,21 +136,5 @@ public class User {
 
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", pesel='" + pesel + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", address=" + address +
-                ", visitList=" + visitList +
-                ", roleList=" + roleList +
-                '}';
     }
 }
