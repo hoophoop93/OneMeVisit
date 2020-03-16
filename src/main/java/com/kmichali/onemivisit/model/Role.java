@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kmichali.onemivisit.utils.AuthorityType;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Role implements Serializable {
     @Enumerated(EnumType.STRING)
     private AuthorityType roleName;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name="user_id", nullable = false)
     private User user;

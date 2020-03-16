@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
     public User findByPesel(String pesel) {
         return userRepository.findByPesel(pesel);
     }
+
+    @Override
+    public boolean countByPesel(String pesel) {
+        return userRepository.countByPesel(pesel) > 0 ? true: false;
+    }
 }

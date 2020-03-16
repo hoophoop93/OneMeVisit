@@ -7,4 +7,5 @@ public interface UserService extends GenericService<User> {
 
     User findById(long id);
     User findByPesel(String pesel);
+    boolean countByPesel(String pesel);
 }

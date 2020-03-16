@@ -2,9 +2,13 @@ package com.kmichali.onemivisit.controler;
 
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
+import com.kmichali.onemivisit.utils.BCryptHashPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -12,17 +16,29 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
-    @PostMapping("/register")
-    public User createUser(@RequestBody User user){
-        return  userService.save(user);
+    @PostMapping("/registration")
+    public ResponseEntity<String> createUser(@RequestBody User user){
+
+        if(userService.countByPesel(user.getPesel())){
+            return new ResponseEntity("The pesel number is already taken!", HttpStatus.BAD_REQUEST);
+        }
+        user.setPassword(BCryptHashPassword.hashPassword(user.getPassword()));
+        userService.save(user);
+        return new ResponseEntity("Success - User created.", HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> findUser(@PathVariable("id") long id){
+    public User findUser(@PathVariable("id") long id){
         User user = userService.findById(id);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return user;
+    }
+
+    @GetMapping("/user")
+    public User getUser(@RequestParam(value="pesel") String pesel){
+        User user = userService.findByPesel(pesel);
+        return user;
     }
 
     @DeleteMapping("/delete/{id}")

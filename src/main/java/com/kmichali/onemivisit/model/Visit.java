@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,11 +24,12 @@ public class Visit implements Serializable {
     @Column(name="registration_date")
     private Date registrationDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="doctor_id", nullable = false)
     private Doctor doctor;
 
@@ -71,4 +73,11 @@ public class Visit implements Serializable {
         this.registrationDate = registrationDate;
     }
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 }

@@ -37,18 +37,15 @@ public class User implements Serializable {
     @Column(name="email")
     private String email;
 
-    @Column(name="username")
-    private String username;
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="address_id")
     private Address address;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Visit> visitList;
+    private List<Visit> visitList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Role> roleList;
+    private List<Role> roleList = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -106,14 +103,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -127,7 +116,9 @@ public class User implements Serializable {
     }
 
     public void setVisitList(List<Visit> visitList) {
-        this.visitList = visitList;
+        this.getVisitList().clear();
+        if(visitList != null)
+            this.getVisitList().addAll(visitList);
     }
 
     public List<Role> getRoleList() {
@@ -135,6 +126,8 @@ public class User implements Serializable {
     }
 
     public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+        this.getRoleList().clear();
+        if(roleList != null)
+            this.getRoleList().addAll(roleList);
     }
 }

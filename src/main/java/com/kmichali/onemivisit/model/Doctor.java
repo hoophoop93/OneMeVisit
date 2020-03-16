@@ -3,6 +3,7 @@ package com.kmichali.onemivisit.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,6 @@ public class Doctor {
     private String room;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Visit> visitList;
+    private List<Visit> visitList = new ArrayList<>();;
 
 }
