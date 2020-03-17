@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.controler;
 
+import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
 import com.kmichali.onemivisit.utils.BCryptHashPassword;
@@ -19,13 +20,12 @@ public class UserController {
     private UserServiceImpl userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<String> createUser(@RequestBody User user){
+    public ResponseEntity<String> createUser(@RequestBody UserDTO user){
 
         if(userService.countByPesel(user.getPesel())){
             return new ResponseEntity("The pesel number is already taken!", HttpStatus.BAD_REQUEST);
         }
-        user.setPassword(BCryptHashPassword.hashPassword(user.getPassword()));
-        userService.save(user);
+        userService.saveDTO(user);
         return new ResponseEntity("Success - User created.", HttpStatus.CREATED);
     }
 

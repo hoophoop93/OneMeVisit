@@ -1,0 +1,33 @@
+package com.kmichali.onemivisit.mapper;
+
+import com.kmichali.onemivisit.dto.UserDTO;
+import com.kmichali.onemivisit.model.User;
+
+public class UserMapper extends BaseMapper<User, UserDTO> {
+
+    @Override
+    public User dtoToEntity(UserDTO dto) {
+        User user = new User();
+        user.setId(dto.getId());
+        user.setName(dto.getName());
+        user.setSurname(dto.getSurname());
+        user.setPesel(dto.getPesel());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setPassword(dto.getPassword());
+        user.setEmail(dto.getEmail());
+        return user;
+    }
+
+    @Override
+    public UserDTO entityToDto(User entity) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(entity.getId());
+        userDTO.setName(entity.getName());
+        userDTO.setSurname(entity.getSurname());
+        userDTO.setPesel(entity.getPesel());
+        userDTO.setPhoneNumber(entity.getPhoneNumber());
+        userDTO.setPassword(entity.getPassword());
+        userDTO.setEmail(entity.getEmail());
+        return userDTO;
+    }
+}

@@ -21,6 +21,12 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Doctor saveDTO(Void entity) {
+        return null;
+    }
+
+
+    @Override
     public Doctor update(Doctor entity) {
         return doctorRepository.save(entity);
     }

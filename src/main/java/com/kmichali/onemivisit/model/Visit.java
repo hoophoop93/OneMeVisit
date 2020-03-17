@@ -24,7 +24,6 @@ public class Visit implements Serializable {
     @Column(name="registration_date")
     private Date registrationDate;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;

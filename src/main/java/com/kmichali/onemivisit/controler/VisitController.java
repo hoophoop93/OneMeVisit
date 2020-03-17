@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.controler;
 
+import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.model.Visit;
 import com.kmichali.onemivisit.service.UserService;
@@ -22,7 +23,7 @@ public class VisitController {
     UserServiceImpl userService;
 
     @GetMapping("/visits/{id}")
-    private List<Visit> getVisit(@PathVariable("id") long id){
+    private List<VisitDTO> getVisit(@PathVariable("id") long id){
         User user = userService.findById(id);
         return visitService.getVisitByUser(user);
     }

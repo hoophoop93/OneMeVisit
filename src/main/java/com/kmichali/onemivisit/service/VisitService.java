@@ -1,12 +1,15 @@
 package com.kmichali.onemivisit.service;
 
-import com.kmichali.onemivisit.generic.GenericService;
+import com.kmichali.onemivisit.dto.UserDTO;
+import com.kmichali.onemivisit.dto.VisitDTO;
+import com.kmichali.onemivisit.utils.GenericService;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.model.Visit;
+import com.sun.org.apache.xpath.internal.objects.XNull;
 
 import java.util.List;
 
-public interface VisitService extends GenericService<Visit> {
+public interface VisitService extends GenericService<Visit, VisitDTO> {
 
-     List<Visit> getVisitByUser(User user);
+     List<VisitDTO> getVisitByUser(User user);
 }

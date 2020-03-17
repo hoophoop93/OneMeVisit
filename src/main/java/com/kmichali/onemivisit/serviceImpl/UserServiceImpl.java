@@ -1,8 +1,11 @@
 package com.kmichali.onemivisit.serviceImpl;
 
+import com.kmichali.onemivisit.dto.UserDTO;
+import com.kmichali.onemivisit.mapper.UserMapper;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.repository.UserRepository;
 import com.kmichali.onemivisit.service.UserService;
+import com.kmichali.onemivisit.utils.BCryptHashPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +15,23 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private UserMapper userMapper;
+
+    @Autowired
+    public UserServiceImpl(){
+        this.userMapper = new UserMapper();
+    }
+
     @Override
     public User save(User entity) {
         return userRepository.save(entity);
+    }
+
+    @Override
+    public User saveDTO(UserDTO entity) {
+        User user = userMapper.dtoToEntity(entity);
+        user.setPassword(BCryptHashPassword.hashPassword(user.getPassword()));
+        return userRepository.save(user);
     }
 
     @Override

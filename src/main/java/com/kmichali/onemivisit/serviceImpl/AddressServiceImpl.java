@@ -21,6 +21,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public Address saveDTO(Void entity) {
+        return null;
+    }
+
+
+    @Override
     public Address update(Address entity) {
         return addressRepository.save(entity);
     }
