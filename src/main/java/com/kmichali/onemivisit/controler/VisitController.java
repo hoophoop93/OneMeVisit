@@ -2,14 +2,12 @@ package com.kmichali.onemivisit.controler;
 
 import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.User;
-import com.kmichali.onemivisit.model.Visit;
-import com.kmichali.onemivisit.service.UserService;
 import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
 import com.kmichali.onemivisit.serviceImpl.VisitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,14 +15,20 @@ import java.util.List;
 public class VisitController {
 
     @Autowired
-    VisitServiceImpl visitService;
+    private VisitServiceImpl visitService;
 
     @Autowired
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
     @GetMapping("/visits/{id}")
-    private List<VisitDTO> getVisit(@PathVariable("id") long id){
+    public List<VisitDTO> getVisit(@PathVariable("id") long id){
         User user = userService.findById(id);
         return visitService.getVisitByUser(user);
+    }
+
+    @PostMapping("/addVisit")
+    public ResponseEntity<String> addVisit(@RequestBody VisitDTO visit){
+        visitService.saveDTO(visit);
+        return new ResponseEntity<>("Success - visist created.", HttpStatus.CREATED);
     }
 }

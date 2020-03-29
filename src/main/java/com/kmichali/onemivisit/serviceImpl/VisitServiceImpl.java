@@ -19,7 +19,7 @@ public class VisitServiceImpl implements VisitService {
 
 
     @Autowired
-    VisitRepository visitRepository;
+    private VisitRepository visitRepository;
     private VisitMapper visitMapper;
 
     @Autowired
@@ -33,8 +33,9 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit saveDTO(VisitDTO entity) {
-        return null;
+    public Visit saveDTO(VisitDTO dtoEntity) {
+        Visit visit = visitMapper.dtoToEntity(dtoEntity);
+        return visitRepository.save(visit);
     }
 
     @Override
@@ -53,8 +54,9 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Iterable<Visit> findAll() {
-        return visitRepository.findAll();
+    public List<Visit> findAll() {
+        //return visitRepository.findAll();
+        return null;
     }
 
     @Override

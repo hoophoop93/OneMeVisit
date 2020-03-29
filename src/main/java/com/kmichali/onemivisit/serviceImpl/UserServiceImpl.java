@@ -9,6 +9,8 @@ import com.kmichali.onemivisit.utils.BCryptHashPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,8 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveDTO(UserDTO entity) {
-        User user = userMapper.dtoToEntity(entity);
+    public User saveDTO(UserDTO dtoEntity) {
+        User user = userMapper.dtoToEntity(dtoEntity);
         user.setPassword(BCryptHashPassword.hashPassword(user.getPassword()));
         return userRepository.save(user);
     }
@@ -50,8 +52,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Iterable<User> findAll() {
-        return userRepository.findAll();
+    public List<User> findAll() {
+        //return userRepository.findAll();
+        return null;
     }
 
     @Override

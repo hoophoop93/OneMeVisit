@@ -12,6 +12,8 @@ public class VisitDTO {
 
     private Date registrationDate;
 
+    private UserDTO userDTO;
+
     private DoctorDTO doctorDTO;
 
     public long getId() {
@@ -44,6 +46,14 @@ public class VisitDTO {
 
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public DoctorDTO getDoctorDTO() {

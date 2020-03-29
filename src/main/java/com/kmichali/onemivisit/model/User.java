@@ -41,6 +41,7 @@ public class User implements Serializable {
     @JoinColumn(name="address_id")
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Visit> visitList = new ArrayList<>();
 

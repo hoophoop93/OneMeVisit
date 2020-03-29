@@ -1,7 +1,12 @@
 package com.kmichali.onemivisit.service;
 
+import com.kmichali.onemivisit.dto.DoctorDTO;
 import com.kmichali.onemivisit.utils.GenericService;
 import com.kmichali.onemivisit.model.Doctor;
 
-public interface DoctorService extends GenericService<Doctor, Void> {
+import java.util.List;
+
+public interface DoctorService extends GenericService<Doctor, DoctorDTO> {
+
+    List<DoctorDTO> getAllDoctor();
 }

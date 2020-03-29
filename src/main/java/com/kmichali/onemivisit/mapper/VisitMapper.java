@@ -9,9 +9,11 @@ import java.util.List;
 public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
 
     private DoctorMapper doctorMapper;
+    private UserMapper userMapper;
 
     public VisitMapper(){
         this.doctorMapper = new DoctorMapper();
+        this.userMapper = new UserMapper();
     }
 
     @Override
@@ -21,6 +23,7 @@ public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
         visit.setVisitDate(dto.getVisitDate());
         visit.setRegistrationDate(dto.getRegistrationDate());
         visit.setVisitHour(dto.getVisitHour());
+        visit.setUser(userMapper.dtoToEntity(dto.getUserDTO()));
         visit.setDoctor(doctorMapper.dtoToEntity(dto.getDoctorDTO()));
 
         return visit;
@@ -33,6 +36,7 @@ public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
         visitDTO.setVisitDate(entity.getVisitDate());
         visitDTO.setRegistrationDate(entity.getRegistrationDate());
         visitDTO.setVisitHour(entity.getVisitHour());
+        visitDTO.setUserDTO(userMapper.entityToDto(entity.getUser()));
         visitDTO.setDoctorDTO(doctorMapper.entityToDto(entity.getDoctor()));
 
         return visitDTO;
@@ -46,6 +50,7 @@ public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
             visitDTO.setVisitDate(entity.get(i).getVisitDate());
             visitDTO.setRegistrationDate(entity.get(i).getRegistrationDate());
             visitDTO.setVisitHour(entity.get(i).getVisitHour());
+            visitDTO.setUserDTO(userMapper.entityToDto(entity.get(i).getUser()));
             visitDTO.setDoctorDTO(doctorMapper.entityToDto(entity.get(i).getDoctor()));
             visitDTOList.add(visitDTO);
         }
