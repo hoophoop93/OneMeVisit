@@ -10,8 +10,6 @@ import java.util.List;
 
 public class DoctorMapper extends BaseMapper<Doctor, DoctorDTO> {
 
-
-
     @Override
     public Doctor dtoToEntity(DoctorDTO dto) {
         Doctor doctor = new Doctor();

@@ -3,13 +3,14 @@ package com.kmichali.onemivisit.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @Table(name="doctors")
-public class Doctor {
+public class Doctor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,6 @@ public class Doctor {
     private String room;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Visit> visitList = new ArrayList<>();;
+    private List<Visit> visitList = new ArrayList<>();
 
 }

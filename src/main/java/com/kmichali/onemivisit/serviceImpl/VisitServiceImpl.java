@@ -3,6 +3,7 @@ package com.kmichali.onemivisit.serviceImpl;
 import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.mapper.VisitMapper;
+import com.kmichali.onemivisit.model.Doctor;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.model.Visit;
 import com.kmichali.onemivisit.repository.VisitRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -44,6 +47,13 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
+    public Visit updateDTO(VisitDTO dtoEntity, Visit entity) {
+        Visit visit = visitMapper.dtoToEntityForUpdate(dtoEntity,entity);
+        return visitRepository.save(visit);
+    }
+
+
+    @Override
     public void delete(Visit entity) {
         visitRepository.delete(entity);
     }
@@ -55,14 +65,18 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public List<Visit> findAll() {
-        //return visitRepository.findAll();
-        return null;
+        List<Visit> visitList = StreamSupport.stream(visitRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        return visitList;
+    }
+
+    @Override
+    public Visit findById(long id) {
+        return visitRepository.findById(id);
     }
 
     @Override
     public List<VisitDTO> getVisitByUser(User user) {
         List<Visit> visitList = visitRepository.findByUser(user);
-
         List<VisitDTO> visitDTO = visitMapper.entityListToDtoList(visitList);
 
         return visitDTO;

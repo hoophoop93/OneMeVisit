@@ -1,7 +1,9 @@
 package com.kmichali.onemivisit.mapper;
 
 import com.kmichali.onemivisit.dto.UserDTO;
+import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.User;
+import com.kmichali.onemivisit.model.Visit;
 
 public class UserMapper extends BaseMapper<User, UserDTO> {
 
@@ -29,5 +31,17 @@ public class UserMapper extends BaseMapper<User, UserDTO> {
         userDTO.setPassword(entity.getPassword());
         userDTO.setEmail(entity.getEmail());
         return userDTO;
+    }
+
+    public User dtoToEntityForUpdate(UserDTO userdto, User user) {
+        user.setId(userdto.getId());
+        user.setName(userdto.getName());
+        user.setSurname(userdto.getSurname());
+        user.setPesel(userdto.getPesel());
+        user.setPhoneNumber(userdto.getPhoneNumber());
+        user.setPassword(userdto.getPassword());
+        user.setEmail(userdto.getEmail());
+
+        return user;
     }
 }

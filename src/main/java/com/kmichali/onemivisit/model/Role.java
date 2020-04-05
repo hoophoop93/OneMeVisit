@@ -18,8 +18,7 @@ public class Role implements Serializable {
     @Enumerated(EnumType.STRING)
     private AuthorityType roleName;
 
-    @JsonIgnore
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 

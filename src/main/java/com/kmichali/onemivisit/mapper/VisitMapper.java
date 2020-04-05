@@ -42,6 +42,17 @@ public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
         return visitDTO;
     }
 
+    public Visit dtoToEntityForUpdate(VisitDTO dto, Visit visit) {
+        visit.setId(dto.getId());
+        visit.setVisitDate(dto.getVisitDate());
+        visit.setRegistrationDate(dto.getRegistrationDate());
+        visit.setVisitHour(dto.getVisitHour());
+        visit.setUser(userMapper.dtoToEntity(dto.getUserDTO()));
+        visit.setDoctor(doctorMapper.dtoToEntity(dto.getDoctorDTO()));
+
+        return visit;
+    }
+
     public List<VisitDTO> entityListToDtoList(List<Visit> entity) {
         List<VisitDTO> visitDTOList = new ArrayList<VisitDTO>();
         for(int i =0; i< entity.size(); i++){

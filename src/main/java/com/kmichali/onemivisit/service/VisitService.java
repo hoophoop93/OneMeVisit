@@ -11,5 +11,6 @@ import java.util.List;
 
 public interface VisitService extends GenericService<Visit, VisitDTO> {
 
+     Visit findById(long id);
      List<VisitDTO> getVisitByUser(User user);
 }

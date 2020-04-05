@@ -2,6 +2,7 @@ package com.kmichali.onemivisit.controler;
 
 import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.User;
+import com.kmichali.onemivisit.model.Visit;
 import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
 import com.kmichali.onemivisit.serviceImpl.VisitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,22 @@ public class VisitController {
     @PostMapping("/addVisit")
     public ResponseEntity<String> addVisit(@RequestBody VisitDTO visit){
         visitService.saveDTO(visit);
-        return new ResponseEntity<>("Success - visist created.", HttpStatus.CREATED);
+        return new ResponseEntity<>("Success - visit created.", HttpStatus.CREATED);
+    }
+    @PutMapping("/updateVisit")
+    public ResponseEntity<String> updateVisit(@RequestBody VisitDTO visit){
+        Visit visitToUpdate = visitService.findById(visit.getId());
+        visitService.updateDTO(visit,visitToUpdate);
+        return new ResponseEntity<>("Success - visit updated correctly.", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/deleteVisit/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") long id){
+        visitService.delete(id);
+        Visit visit = visitService.findById(id);
+        if(visit == null)
+            return new ResponseEntity<>("Success - Visit deleted.", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Failed - visit not deleted.", HttpStatus.BAD_REQUEST);
     }
 }

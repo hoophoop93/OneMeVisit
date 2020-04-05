@@ -1,8 +1,9 @@
 package com.kmichali.onemivisit.dto;
 
 import javax.persistence.Column;
+import java.io.Serializable;
 
-public class UserDTO {
+public class UserDTO implements Serializable {
 
     private long id;
 

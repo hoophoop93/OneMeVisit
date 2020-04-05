@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.serviceImpl;
 
+import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.model.MyUserDetails;
 import com.kmichali.onemivisit.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

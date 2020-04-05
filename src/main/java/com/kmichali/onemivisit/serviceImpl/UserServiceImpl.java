@@ -42,6 +42,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateDTO(UserDTO dtoEntity, User entity) {
+        User user = userMapper.dtoToEntityForUpdate(dtoEntity,entity);
+
+        return userRepository.save(user);
+    }
+
+
+    @Override
     public void delete(User entity) {
         userRepository.delete(entity);
     }
@@ -63,8 +71,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO findUserDtoByUser(User user) {
+        UserDTO userDto = userMapper.entityToDto(user);
+        return userDto;
+    }
+
+    @Override
     public User findByPesel(String pesel) {
         return userRepository.findByPesel(pesel);
+    }
+
+    @Override
+    public UserDTO getUserDTOByPesel(String pesel) {
+        UserDTO userDto = userMapper.entityToDto(findByPesel(pesel));
+        return userDto;
     }
 
     @Override

@@ -45,6 +45,12 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Doctor updateDTO(DoctorDTO dtoEntity, Doctor entity) {
+        return null;
+    }
+
+
+    @Override
     public void delete(Doctor entity) {
         doctorRepository.delete(entity);
     }
