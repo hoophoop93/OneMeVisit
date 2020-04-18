@@ -1,6 +1,5 @@
 package com.kmichali.onemivisit.serviceImpl;
 
-import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.model.MyUserDetails;
 import com.kmichali.onemivisit.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     /**
      * Get user by pesel. Login process.
      *
-     * @param username The user's special number
+     * @param username The user's pesel number
      * @return UserDetails object
      * @throws UsernameNotFoundException No user found
      */

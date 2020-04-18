@@ -1,7 +1,6 @@
 package com.kmichali.onemivisit.serviceImpl;
 
 import com.kmichali.onemivisit.dto.DoctorDTO;
-import com.kmichali.onemivisit.mapper.BaseMapper;
 import com.kmichali.onemivisit.mapper.DoctorMapper;
 import com.kmichali.onemivisit.model.Doctor;
 import com.kmichali.onemivisit.repository.DoctorRepository;
@@ -23,7 +22,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     private DoctorMapper doctorMapper;
 
-    public DoctorServiceImpl(){
+    public DoctorServiceImpl() {
         this.doctorMapper = new DoctorMapper();
     }
 
@@ -33,7 +32,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor saveDTO(DoctorDTO dtoEntity) {
+    public Doctor saveFromDTO(DoctorDTO dtoEntity) {
         Doctor doctor = doctorMapper.dtoToEntity(dtoEntity);
         return doctorRepository.save(doctor);
     }
@@ -45,10 +44,9 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor updateDTO(DoctorDTO dtoEntity, Doctor entity) {
+    public Doctor updateFromDTO(DoctorDTO dtoEntity, Doctor entity) {
         return null;
     }
-
 
     @Override
     public void delete(Doctor entity) {
@@ -62,7 +60,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Doctor> findAll() {
-        List<Doctor> doctorList = StreamSupport.stream(doctorRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        List<Doctor> doctorList = StreamSupport.stream(doctorRepository.findAll().spliterator(), false).collect(Collectors.toList());
         return doctorList;
     }
 

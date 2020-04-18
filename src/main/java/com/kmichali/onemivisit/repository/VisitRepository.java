@@ -11,5 +11,6 @@ import java.util.List;
 public interface VisitRepository extends CrudRepository<Visit, Long> {
 
     Visit findById(long id);
+
     List<Visit> findByUser(User user);
 }

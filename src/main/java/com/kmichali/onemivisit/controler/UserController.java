@@ -1,21 +1,22 @@
 package com.kmichali.onemivisit.controler;
 
 import com.kmichali.onemivisit.dto.UserDTO;
-import com.kmichali.onemivisit.model.Address;
 import com.kmichali.onemivisit.model.Role;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.serviceImpl.RoleServiceImpl;
 import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
 import com.kmichali.onemivisit.utils.AuthorityType;
-import com.kmichali.onemivisit.utils.BCryptHashPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class UserController {
@@ -27,12 +28,12 @@ public class UserController {
     private RoleServiceImpl roleService;
 
     @PostMapping("/registration")
-    public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO) {
 
-        if(userService.countByPesel(userDTO.getPesel())){
+        if (userService.countByPesel(userDTO.getPesel())) {
             return new ResponseEntity("The pesel number is already taken!", HttpStatus.BAD_REQUEST);
         }
-        User user = userService.saveDTO(userDTO);
+        User user = userService.saveFromDTO(userDTO);
         Role role = new Role();
         role.setRoleName(AuthorityType.ROLE_USER);
         role.setUser(user);
@@ -42,37 +43,37 @@ public class UserController {
     }
 
     @PutMapping("/updateUser")
-    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO) {
         User userToUpdate = userService.findById(userDTO.getId());
-        userService.updateDTO(userDTO,userToUpdate);
+        userService.updateFromDTO(userDTO, userToUpdate);
         return new ResponseEntity<>("Success - User updated correctly.", HttpStatus.CREATED);
 
     }
 
     @GetMapping("/user/{id}")
-    public User findUser(@PathVariable("id") long id){
+    public User findUser(@PathVariable("id") long id) {
         User user = userService.findById(id);
         return user;
     }
 
     @GetMapping("/user")
-    public UserDTO getUser(@RequestParam(value="pesel") String pesel){
+    public UserDTO getUser(@RequestParam(value ="pesel") String pesel) {
         UserDTO user = userService.getUserDTOByPesel(pesel);
         return user;
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") long id){
+    public void delete(@PathVariable("id") long id) {
         userService.delete(id);
     }
 
     @PutMapping()
-    public User update(@RequestBody User user){
+    public User update(@RequestBody User user) {
         return userService.update(user);
     }
 
     @GetMapping("/users")
-    public Iterable<User> getUsers(){
+    public Iterable<User> getUsers() {
         return userService.findAll();
     }
 }

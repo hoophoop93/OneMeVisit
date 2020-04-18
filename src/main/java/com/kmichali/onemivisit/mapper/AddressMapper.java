@@ -1,16 +1,16 @@
 package com.kmichali.onemivisit.mapper;
 
 import com.kmichali.onemivisit.dto.AddressDTO;
-import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.model.Address;
-import com.kmichali.onemivisit.model.User;
 
 public class AddressMapper extends BaseMapper<Address, AddressDTO> {
 
     UserMapper userMapper;
-    public AddressMapper(){
+
+    public AddressMapper() {
         this.userMapper = new UserMapper();
     }
+
     @Override
     public Address dtoToEntity(AddressDTO dto) {
         Address address = new Address();
@@ -36,7 +36,7 @@ public class AddressMapper extends BaseMapper<Address, AddressDTO> {
     }
 
     public Address dtoToEntityForUpdate(AddressDTO addressDTO, Address address) {
-        if(address == null)
+        if (address == null)
             address = new Address();
         address.setId(addressDTO.getId());
         address.setStreet(addressDTO.getStreet());

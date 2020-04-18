@@ -1,11 +1,8 @@
 package com.kmichali.onemivisit.mapper;
 
 import com.kmichali.onemivisit.dto.DoctorDTO;
-import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.Doctor;
-import com.kmichali.onemivisit.model.Visit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorMapper extends BaseMapper<Doctor, DoctorDTO> {
@@ -34,17 +31,14 @@ public class DoctorMapper extends BaseMapper<Doctor, DoctorDTO> {
         return doctorDTO;
     }
 
-    public List<DoctorDTO> entityListToDtoList(List<Doctor> entity) {
-        List<DoctorDTO> doctorDTOList = new ArrayList<DoctorDTO>();
-        for(int i =0; i< entity.size(); i++){
-            DoctorDTO doctorDTO = new DoctorDTO();
-            doctorDTO.setId(entity.get(i).getId());
-            doctorDTO.setName(entity.get(i).getName());
-            doctorDTO.setSurname(entity.get(i).getSurname());
-            doctorDTO.setSpecialization(entity.get(i).getSpecialization());
-            doctorDTO.setRoom(entity.get(i).getRoom());
-            doctorDTOList.add(doctorDTO);
-        }
-        return doctorDTOList;
+    @Override
+    public List<Doctor> dtoListToEntityList(List<DoctorDTO> dtoList) {
+        return super.dtoListToEntityList(dtoList);
     }
+
+    @Override
+    public List<DoctorDTO> entityListToDtoList(List<Doctor> entityList) {
+        return super.entityListToDtoList(entityList);
+    }
+
 }

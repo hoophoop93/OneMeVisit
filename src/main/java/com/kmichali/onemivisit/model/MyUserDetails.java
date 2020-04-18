@@ -1,15 +1,10 @@
 package com.kmichali.onemivisit.model;
 
-import com.kmichali.onemivisit.dto.UserDTO;
-import com.kmichali.onemivisit.serviceImpl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {

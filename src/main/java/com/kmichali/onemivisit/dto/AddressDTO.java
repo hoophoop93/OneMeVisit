@@ -1,9 +1,5 @@
 package com.kmichali.onemivisit.dto;
 
-import com.kmichali.onemivisit.model.User;
-
-import javax.persistence.Column;
-
 public class AddressDTO {
 
     private long id;

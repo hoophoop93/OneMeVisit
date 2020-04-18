@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Autowired
-    public UserServiceImpl(){
+    public UserServiceImpl() {
         this.userMapper = new UserMapper();
     }
 
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveDTO(UserDTO dtoEntity) {
+    public User saveFromDTO(UserDTO dtoEntity) {
         User user = userMapper.dtoToEntity(dtoEntity);
         user.setPassword(BCryptHashPassword.hashPassword(user.getPassword()));
         return userRepository.save(user);
@@ -42,12 +44,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateDTO(UserDTO dtoEntity, User entity) {
-        User user = userMapper.dtoToEntityForUpdate(dtoEntity,entity);
+    public User updateFromDTO(UserDTO dtoEntity, User entity) {
+        User user = userMapper.dtoToEntityForUpdate(dtoEntity, entity);
 
         return userRepository.save(user);
     }
-
 
     @Override
     public void delete(User entity) {
@@ -61,8 +62,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        //return userRepository.findAll();
-        return null;
+        List<User> userList = StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+        return userList;
     }
 
     @Override
@@ -89,6 +90,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean countByPesel(String pesel) {
-        return userRepository.countByPesel(pesel) > 0 ? true: false;
+        return userRepository.countByPesel(pesel) > 0 ? true : false;
     }
 }

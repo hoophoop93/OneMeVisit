@@ -1,9 +1,7 @@
 package com.kmichali.onemivisit.serviceImpl;
 
-import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.mapper.VisitMapper;
-import com.kmichali.onemivisit.model.Doctor;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.model.Visit;
 import com.kmichali.onemivisit.repository.VisitRepository;
@@ -36,7 +34,7 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit saveDTO(VisitDTO dtoEntity) {
+    public Visit saveFromDTO(VisitDTO dtoEntity) {
         Visit visit = visitMapper.dtoToEntity(dtoEntity);
         return visitRepository.save(visit);
     }
@@ -47,7 +45,7 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit updateDTO(VisitDTO dtoEntity, Visit entity) {
+    public Visit updateFromDTO(VisitDTO dtoEntity, Visit entity) {
         Visit visit = visitMapper.dtoToEntityForUpdate(dtoEntity,entity);
         return visitRepository.save(visit);
     }

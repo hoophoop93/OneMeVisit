@@ -5,6 +5,7 @@ import com.kmichali.onemivisit.dto.UserDTO;
 import com.kmichali.onemivisit.mapper.AddressMapper;
 import com.kmichali.onemivisit.mapper.UserMapper;
 import com.kmichali.onemivisit.model.Address;
+import com.kmichali.onemivisit.model.Doctor;
 import com.kmichali.onemivisit.model.User;
 import com.kmichali.onemivisit.repository.AddressRepository;
 import com.kmichali.onemivisit.service.AddressService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -36,7 +39,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address saveDTO(AddressDTO dtoEntity) {
+    public Address saveFromDTO(AddressDTO dtoEntity) {
         return null;
     }
 
@@ -46,7 +49,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address updateDTO(AddressDTO dtoEntity, Address entity) {
+    public Address updateFromDTO(AddressDTO dtoEntity, Address entity) {
         Address address = addressMapper.dtoToEntityForUpdate(dtoEntity,entity);
         return addressRepository.save(address);
     }
@@ -64,8 +67,8 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> findAll() {
-        //return addressRepository.findAll();
-        return null;
+        List<Address> addressList = StreamSupport.stream(addressRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        return addressList;
     }
 
     @Override

@@ -2,13 +2,20 @@ package com.kmichali.onemivisit.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
 @Table(name="doctors")
 public class Doctor implements Serializable {
 

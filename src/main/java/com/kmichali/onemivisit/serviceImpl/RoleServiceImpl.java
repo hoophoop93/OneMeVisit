@@ -1,5 +1,6 @@
 package com.kmichali.onemivisit.serviceImpl;
 
+import com.kmichali.onemivisit.model.Address;
 import com.kmichali.onemivisit.model.Role;
 import com.kmichali.onemivisit.repository.RoleRepository;
 import com.kmichali.onemivisit.service.RoleService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -20,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role saveDTO(Void dtoEntity) {
+    public Role saveFromDTO(Void dtoEntity) {
         return null;
     }
 
@@ -30,23 +33,23 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role updateDTO(Void dtoEntity, Role entity) {
+    public Role updateFromDTO(Void dtoEntity, Role entity) {
         return null;
     }
 
-
     @Override
     public void delete(Role entity) {
-
+        this.roleRepository.delete(entity);
     }
 
     @Override
     public void delete(long id) {
-
+        this.roleRepository.deleteById(id);
     }
 
     @Override
     public List<Role> findAll() {
-        return null;
+        List<Role> roleList = StreamSupport.stream(roleRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        return roleList;
     }
 }

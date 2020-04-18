@@ -1,12 +1,20 @@
 package com.kmichali.onemivisit.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kmichali.onemivisit.utils.AuthorityType;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.io.Serializable;
 
+@Data
 @Entity
 @Table(name="role")
 public class Role implements Serializable {
@@ -21,28 +29,4 @@ public class Role implements Serializable {
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public AuthorityType getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(AuthorityType roleName) {
-        this.roleName = roleName;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

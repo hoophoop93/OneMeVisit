@@ -1,9 +1,7 @@
 package com.kmichali.onemivisit.mapper;
 
 import com.kmichali.onemivisit.dto.UserDTO;
-import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.User;
-import com.kmichali.onemivisit.model.Visit;
 
 public class UserMapper extends BaseMapper<User, UserDTO> {
 

@@ -3,7 +3,6 @@ package com.kmichali.onemivisit.mapper;
 import com.kmichali.onemivisit.dto.VisitDTO;
 import com.kmichali.onemivisit.model.Visit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
@@ -11,7 +10,7 @@ public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
     private DoctorMapper doctorMapper;
     private UserMapper userMapper;
 
-    public VisitMapper(){
+    public VisitMapper() {
         this.doctorMapper = new DoctorMapper();
         this.userMapper = new UserMapper();
     }
@@ -53,18 +52,13 @@ public class VisitMapper extends BaseMapper<Visit, VisitDTO> {
         return visit;
     }
 
-    public List<VisitDTO> entityListToDtoList(List<Visit> entity) {
-        List<VisitDTO> visitDTOList = new ArrayList<VisitDTO>();
-        for(int i =0; i< entity.size(); i++){
-            VisitDTO visitDTO = new VisitDTO();
-            visitDTO.setId(entity.get(i).getId());
-            visitDTO.setVisitDate(entity.get(i).getVisitDate());
-            visitDTO.setRegistrationDate(entity.get(i).getRegistrationDate());
-            visitDTO.setVisitHour(entity.get(i).getVisitHour());
-            visitDTO.setUserDTO(userMapper.entityToDto(entity.get(i).getUser()));
-            visitDTO.setDoctorDTO(doctorMapper.entityToDto(entity.get(i).getDoctor()));
-            visitDTOList.add(visitDTO);
-        }
-        return visitDTOList;
+    @Override
+    public List<Visit> dtoListToEntityList(List<VisitDTO> dtoList) {
+        return super.dtoListToEntityList(dtoList);
+    }
+
+    @Override
+    public List<VisitDTO> entityListToDtoList(List<Visit> entityList) {
+        return super.entityListToDtoList(entityList);
     }
 }

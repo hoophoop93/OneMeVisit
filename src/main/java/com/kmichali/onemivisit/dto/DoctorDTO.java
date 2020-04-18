@@ -1,7 +1,5 @@
 package com.kmichali.onemivisit.dto;
 
-import javax.persistence.Column;
-
 public class DoctorDTO {
 
     private long id;

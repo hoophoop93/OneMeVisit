@@ -12,7 +12,7 @@ public abstract class BaseMapper<E,D> {
     public List<E> dtoListToEntityList(List<D> dtoList){
         return dtoList.stream().map(this::dtoToEntity).collect(Collectors.toList());
     }
-    public List<D> entityListTODtoList(List<E> entityList){
+    public List<D> entityListToDtoList(List<E> entityList){
         return entityList.stream().map(this::entityToDto).collect(Collectors.toList());
     }
 }
