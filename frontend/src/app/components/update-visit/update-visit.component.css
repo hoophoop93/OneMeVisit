@@ -1,0 +1,27 @@
+.modal-body .form-horizontal .col-sm-2,
+.modal-body .form-horizontal .col-sm-10 {
+    width: 100%
+}
+
+.modal-body .form-horizontal .control-label {
+    text-align: left;
+}
+.modal-body .form-horizontal .col-sm-offset-2 {
+    margin-left: 15px;
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
+}
+
+.input-group.mb-3 {
+    margin-top:7px;
+}
+
+.greenText{ 
+    color:green;
+    font-weight: bold;
+ }
+ .label {
+    color:green;
+    font-size: small;
+ }

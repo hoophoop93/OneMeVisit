@@ -1,0 +1,81 @@
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="updateVisit" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                    Modify Appointment
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="form" id="myform">
+                    <div class="form-group">
+                        <div class="col">
+                            <label class="font-weight-bold" for="exampleInputPassword1">Change doctor</label>
+                            <form [formGroup]="form" class="input-group mb-3">
+                                <select class="custom-select" id="doctorOption" [compareWith]="compareFn"
+                                    formControlName="doctor">
+                                    <option *ngFor="let doctor of doctors" [ngValue]="doctor"
+                                        [ngClass]="(doctor.id === actualDoctorId) ? 'greenText':'null'">
+                                        {{doctor?.name}} {{doctor?.surname}} - {{doctor?.specialization}} </option>
+                                </select>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="doctorOption">Options</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col">
+                            <label class="font-weight-bold" for="exampleInputPassword1">Change appointment date</label>
+                            <div>
+                                <mat-form-field>
+                                    <mat-label>Choose a Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" [(ngModel)]="visitDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker [startAt]="visitDate"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="exampleInputPassword1">Change appointment
+                                    hour</label>
+                                <div class="input-group mb-3">
+                                    <select class="custom-select" id="inputGroupSelect02"
+                                        [(ngModel)]="visitObj.visitHour">
+                                        <option *ngFor="let hour of visitHour"
+                                            [selected]="hour.hour === visitObj.visitHour" [value]="hour.hour"
+                                            [ngClass]="(hour.hour === actualHourVisit) ? 'greenText':'null'">
+                                            {{hour?.hour}} </option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="label">*Actual value is marked as green color.</p>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+                    Close
+                </button>
+                <button type="submit" form="myform" class="btn btn-primary" (click)="updateVisitForm()"
+                    data-dismiss="modal">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

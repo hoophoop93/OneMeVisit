@@ -1,0 +1,55 @@
+<div class="modal fade" id="visitDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Visit details
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Registration date:</th>
+                            <td> {{visit?.registrationDate | date}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Vist date:</th>
+                            <td> {{visit?.visitDate | date}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit hour:</th>
+                            <td>{{visit?.visitHour}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Doctor name:</th>
+                            <td>{{visit?.doctorDTO.name}} {{visit?.doctorDTO.surname}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Specialization:</th>
+                            <td>{{visit?.doctorDTO.specialization}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Visit room:</th>
+                            <td>{{visit?.doctorDTO.room}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

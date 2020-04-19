@@ -1,0 +1,132 @@
+<notifier-container></notifier-container>
+<div class="container">
+    <br />
+    <h3 class="text-center">My account</h3>
+    <br />
+    <h5>Personal details</h5>
+    <div class="d-flex justify-content-center">
+        <form autocomplete="off" [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col">
+                    <label for="nameInfo">Name</label>
+                    <input type="text" formControlName="nameInfo" class="form-control" placeholder="Enter name"
+                        [(ngModel)]="user.name" [ngClass]="{ 'is-invalid':submitted && fields.nameInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validUserFields[0].checked">
+                        {{usserCoppied?.name}}
+                    </div>
+                    <div *ngIf="submitted && fields.nameInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.nameInfo.errors.required">First Name is required</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="surnameInfo">Surname</label>
+                    <input type="text" formControlName="surnameInfo" class="form-control" placeholder="Enter surname"
+                        [(ngModel)]="user.surname" [ngClass]="{ 'is-invalid':submitted && fields.surnameInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validUserFields[1].checked">
+                        {{usserCoppied?.surname}}
+                    </div>
+                    <div *ngIf="submitted && fields.surnameInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.surnameInfo.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="peselInfo">Pesel Number</label>
+                    <input type="text" maxlength="11" formControlName="peselInfo" class="form-control"
+                        placeholder="Enter pesel number" [(ngModel)]="user.pesel"
+                        [ngClass]="{ 'is-invalid':submitted && fields.peselInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validUserFields[2].checked">
+                        {{usserCoppied?.pesel}}
+                    </div>
+                    <div *ngIf="fields.peselInfo.errors?.serverError" class="invalid-feedback"> blad </div>
+                    <div *ngIf="submitted && fields.peselInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.peselInfo.errors.required">Pesel number is required</div>
+                        <div *ngIf="fields.peselInfo.errors.minlength">Pesel must have a 11 digitals</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="phoneInfo">Phone number</label>
+                    <input type="text" formControlName="phoneInfo" class="form-control" placeholder="Enter phone number"
+                        [(ngModel)]="user.phoneNumber" [ngClass]="{ 'is-invalid':submitted && fields.phoneInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validUserFields[3].checked">
+                        {{usserCoppied?.phoneNumber}}
+                    </div>
+                    <div *ngIf="submitted && fields.phoneInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.phoneInfo.errors.required">Phone number is required</div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="emailInfo">Email address</label>
+                    <input type="email" formControlName="emailInfo" class="form-control" placeholder="Enter email"
+                        [(ngModel)]="user.email" [ngClass]="{ 'is-invalid':submitted && fields.emailInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validUserFields[4].checked">
+                        {{usserCoppied?.email}}
+                    </div>
+                    <div *ngIf="submitted && fields.emailInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.emailInfo.errors.required">Email is required</div>
+                        <div *ngIf="fields.emailInfo.errors.email">Email must be a valid email address</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="passwordInfo">Password</label>
+                <input type="password" formControlName="passwordInfo" class="form-control" placeholder="Password"
+                    [(ngModel)]="user.password" [ngClass]="{ 'is-invalid':submitted && fields.passwordInfo.errors}"
+                    (input)="onSearchChange($event.target)">
+                <div class="greenText" [hidden]="validUserFields[5].checked">
+                    {{usserCoppied?.password}}
+                </div>
+                <div *ngIf="submitted && fields.passwordInfo.errors" class="invalid-feedback">
+                    <div *ngIf="fields.passwordInfo.errors.required">Password is required</div>
+                    <div *ngIf="fields.passwordInfo.errors.minlength">Password must be at least 6 characters</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="name">Street/city</label>
+                    <input type="streetInfo" formControlName="streetInfo" class="form-control" placeholder="Street"
+                        [(ngModel)]="address.street" [ngClass]="{ 'is-invalid':submitted && fields.streetInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validAddressFields[0].checked">
+                        {{addressCopied?.street}}
+                    </div>
+                    <div *ngIf="submitted && fields.streetInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.streetInfo.errors.required">Street is required</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="cityInfo">District office</label>
+                    <input type="text" formControlName="cityInfo" class="form-control" placeholder="city"
+                        [(ngModel)]="address.city" [ngClass]="{'is-invalid':submitted && fields.cityInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validAddressFields[1].checked">
+                        {{addressCopied?.city}}
+                    </div>
+                    <div *ngIf="submitted && fields.cityInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.cityInfo.errors.required">District office is required</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="postalCodeInfo">Postal Code</label>
+                    <input type="text" formControlName="postalCodeInfo" class="form-control" placeholder="postalCode"
+                        [(ngModel)]="address.postalCode"
+                        [ngClass]="{'is-invalid':submitted && fields.postalCodeInfo.errors}"
+                        (input)="onSearchChange($event.target)">
+                    <div class="greenText" [hidden]="validAddressFields[2].checked">
+                        {{addressCopied?.postalCode}}
+                    </div>
+                    <div *ngIf="submitted && fields.postalCodeInfo.errors" class="invalid-feedback">
+                        <div *ngIf="fields.postalCodeInfo.errors.required">Postal code is required</div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-warning" [disabled]="isDisabled">Update personal details</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<notifier-container></notifier-container>
+<div class="container">
+  <div *ngIf="visitsForUser.length >0; then visitList else noVisit"></div>
+
+  <ng-template #noVisit>
+    <h3 class="text-center">No appointments - Add your firs appointment.</h3>
+  </ng-template>
+
+  <ng-template #visitList>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Appointment Date</th>
+          <th scope="col">Appointment Hour</th>
+          <th scope="col">Doctor</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let visit of visitsForUser ; let i = index">
+          <td> {{ i + 1}} </td>
+          <td> {{visit.visitDate | date}} </td>
+          <td> {{visit.visitHour}} </td>
+          <td> {{visit.doctorDTO.name}} {{visit.doctorDTO.surname}} </td>
+          <td>
+            <!-- <img src="assets/img/myimage.png"> -->
+            <button id="buttonMargin" class="btn btn-warning" (click)="visitDetails.openVisitDetails(visit)"
+              data-toggle="modal" data-target="#visitDetails">More</button>
+            <button id="buttonMargin" class="btn btn-warning" (click)="updateVisit.updateVisit(visit)"
+              data-toggle="modal" data-target="#updateVisit">Update</button>
+            <button class="btn btn-danger" (click)="deleteVisitClick(visit.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+
+</div>
+
+<app-visit-details #visitDetails></app-visit-details>
+<app-add-visit #addVisit></app-add-visit>
+<app-update-visit #updateVisit></app-update-visit>
+<app-common-modal id="confirm-modal">
+  <h1>Confirm!</h1>
+  <p>Are you sure want to delete?</p>
+  <button class="btn btn-danger buttonProp" (click)="closeModal($event)" id="yes">Yes</button>
+  <button class="btn btn-warning" (click)="closeModal($event)" id="cancel">Cancel</button>
+</app-common-modal>

@@ -1,0 +1,81 @@
+<notifier-container></notifier-container>
+
+<br />
+<h3 class="text-center">Create your account</h3>
+<br />
+
+<div class="d-flex justify-content-center">
+    <form [formGroup]="validateForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col">
+                <label for="name">Name</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Enter name"
+                    [(ngModel)]="user.name" [ngClass]="getClass((submitted && fields.name.errors),fields.name)">
+                <div *ngIf="submitted && fields.name.errors" class="invalid-feedback">
+                    <div *ngIf="fields.name.errors.required">First Name is required</div>
+                </div>
+            </div>
+            <div class="col">
+                <label for="surname">Surname</label>
+                <input type="text" formControlName="surname" class="form-control" placeholder="Enter surname"
+                    [(ngModel)]="user.surname"
+                    [ngClass]="getClass((submitted && fields.surname.errors),fields.surname)">
+                <div *ngIf="submitted && fields.surname.errors" class="invalid-feedback">
+                    <div *ngIf="fields.surname.errors.required">Last Name is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="pesel">Pesel Number</label>
+                <input type="text" maxlength="11" [pattern]="peselPattern" formControlName="pesel" class="form-control"
+                    placeholder="Enter pesel number" [(ngModel)]="user.pesel"
+                    [ngClass]="getClass((submitted && fields.pesel.errors), fields.pesel)">
+                <div *ngIf="fields.pesel.errors?.serverError" class="invalid-feedback"> {{error}} </div>
+                <div *ngIf="submitted && fields.pesel.errors" class="invalid-feedback">
+                    <div *ngIf="fields.pesel.errors.required">Pesel number is required</div>
+                    <div *ngIf="fields.pesel.errors.minlength">Pesel must have a 11 digitals</div>
+                </div>
+            </div>
+            <div class="col">
+                <label for="phone">Phone number</label>
+                <input type="text" formControlName="phone" class="form-control" placeholder="Enter phone number"
+                    [(ngModel)]="user.phoneNumber"
+                    [ngClass]="getClass((submitted && fields.phone.errors),fields.phone)">
+                <div *ngIf="submitted && fields.phone.errors" class="invalid-feedback">
+                    <div *ngIf="fields.phone.errors.required">Phone number is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" formControlName="email" class="form-control" placeholder="Enter email"
+                [(ngModel)]="user.email" [ngClass]="getClass((submitted && fields.email.errors),fields.email)">
+            <div *ngIf="submitted && fields.email.errors" class="invalid-feedback">
+                <div *ngIf="fields.email.errors.required">Email is required</div>
+                <div *ngIf="fields.email.errors.email">Email must be a valid email address</div>
+            </div>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" placeholder="Password"
+                [(ngModel)]="user.password" [ngClass]="getClass((submitted && fields.password.errors),fields.password)">
+            <div *ngIf="submitted && fields.password.errors" class="invalid-feedback">
+                <div *ngIf="fields.password.errors.required">Password is required</div>
+                <div *ngIf="fields.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Password"
+                [(ngModel)]="confirmPass"
+                [ngClass]="getClass((submitted && fields.confirmPassword.errors),fields.confirmPassword)">
+            <div *ngIf="submitted && fields.confirmPassword.errors" class="invalid-feedback">
+                <div *ngIf="fields.confirmPassword.errors.required">Password is required</div>
+                <div *ngIf="fields.confirmPassword.errors.mustMatch">Passwords must match</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning">Register</button>
+    </form>
+</div>

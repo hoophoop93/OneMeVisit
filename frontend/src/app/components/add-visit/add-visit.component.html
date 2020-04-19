@@ -1,0 +1,80 @@
+<!-- Modal -->
+<div #childModal class="modal fade bd-example-modal-lg" id="addVisit" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                    Add Appointment
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <div class="form" id="myform">
+                    <div class="form-group">
+                        <div class="col">
+                            <label class="font-weight-bold" for="exampleInputPassword1">Choose a Docotr</label>
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect02" [(ngModel)]="visit.doctorDTO">
+                                    <option class="dropdown-item" selected value="undefined">Select an Option</option>
+                                    <!-- <option class="dropdown-item" disabled selected value="undefined">Select an Option</option> -->
+                                    <option *ngFor="let doctor of doctors" [ngValue]="doctor"> {{doctor.name}}
+                                        {{doctor.surname}} - {{doctor.specialization}} </option>
+                                </select>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="font-weight-bold" for="exampleInputPassword1">Appointment date</label>
+                            <div>
+                                <mat-form-field>
+                                    <mat-label>Choose a Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" [(ngModel)]="visitDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="exampleInputPassword1">Choose an hour</label>
+                                <div class="input-group mb-3">
+                                    <select class="custom-select" id="inputGroupSelect02" [(ngModel)]="visit.visitHour">
+                                        <option class="dropdown-item" selected value="undefined">Select an Option
+                                        </option>
+                                        <option *ngFor="let hour of visitHour" [value]="hour.hour"> {{hour.hour}}
+                                        </option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="inputGroupSelect02">Options</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" form="myform" class="btn btn-primary" (click)="addVisitButton()"
+                    data-dismiss="modal">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

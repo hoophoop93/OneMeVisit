@@ -1,0 +1,12 @@
+.container {
+    margin-top: 50px;
+}
+
+#buttonMargin {
+    margin-right: 10px;
+  }
+
+  #buttonMargin2 {
+    margin-right: 100px;
+    background-color: hotpink;
+  }
