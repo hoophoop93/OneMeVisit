@@ -53,4 +53,15 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Role> roleList = new ArrayList<>();
+
+    public User(){}
+    public User(long id, String name, String surname, String pesel, String phoneNumber, String password, String email) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.pesel = pesel;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.email = email;
+    }
 }
