@@ -24,10 +24,10 @@ export class UserAccountComponent implements OnInit {
   protected updateAddress = false;
   protected updateUser = false;
   protected validAddressFields = [
-    { checked: true },
-    { checked: true },
-    { checked: true },
-  ]
+    { checked: true , value: false},
+    { checked: true , value: false},
+    { checked: true , value: false},
+  ];
   protected validUserFields = [
     { checked: true },
     { checked: true },
@@ -35,7 +35,7 @@ export class UserAccountComponent implements OnInit {
     { checked: true },
     { checked: true },
     { checked: true },
-  ]
+  ];
   protected nameHidden;
   protected streetCounter = 0;
   protected districtCounter = 0;
@@ -48,7 +48,8 @@ export class UserAccountComponent implements OnInit {
   protected emailConuter = 0;
   protected passwordCounter = 0;
 
-  constructor(private formBuilder: FormBuilder, private addressService: AddressService, private userService: UserService, private notiferService: MyNotifierService) {
+  constructor(private formBuilder: FormBuilder, private addressService: AddressService, private userService: UserService,
+              private notiferService: MyNotifierService) {
     this.notifier = notiferService;
   }
 
@@ -59,7 +60,7 @@ export class UserAccountComponent implements OnInit {
       peselInfo: ['', [Validators.required, Validators.minLength(11)]],
       phoneInfo: ['', Validators.required],
       emailInfo: ['', [Validators.required, Validators.email]],
-      passwordInfo: ['', [Validators.required, Validators.minLength(6)]],
+      // passwordInfo: ['', [Validators.required, Validators.minLength(6)]],
       cityInfo: ['', Validators.required],
       streetInfo: ['', Validators.required],
       postalCodeInfo: ['', Validators.required],
@@ -71,12 +72,27 @@ export class UserAccountComponent implements OnInit {
       this.usserCoppied = Object.assign({}, res);
     });
 
+    this.addressCopied = new Address();
+    this.addressCopied.street = '';
+    this.addressCopied.postalCode = '';
+    this.addressCopied.city = '';
+
     this.addressService.getAddressByUserId(this.user.id).subscribe(res => {
       if (res != null) {
         this.address = res;
         this.addressCopied = Object.assign({}, res);
+
+        if (this.addressCopied.street.length > 0) {
+          this.validAddressFields[0] = { checked: true, value: true};
+        }
+        if (this.addressCopied.city.length > 0) {
+          this.validAddressFields[1] = { checked: true, value: true};
+        }
+        if (this.addressCopied.postalCode.length > 0) {
+          this.validAddressFields[2] = { checked: true, value: true};
+        }
       }
-    })
+    });
   }
 
   // convenience getter for easy access to form fields
@@ -90,26 +106,26 @@ export class UserAccountComponent implements OnInit {
 
     if (this.updateUser) {
       this.userService.updateUser(this.user).subscribe(res => {
-        this.notiferService.showNotifer("success", res.body)
-      })
+        this.notiferService.showNotifer('success', res.body);
+      });
     }
 
     if (this.updateAddress) {
       this.address.userDTO = this.user;
       this.addressService.updateUserAddress(this.address).subscribe(res => {
         this.addressCopied = Object.assign({}, this.address);
-        this.notiferService.showNotifer("success", res.body)
-      })
+        this.notiferService.showNotifer('success', res.body);
+      });
     }
 
     this.validUserFields.forEach(item => {
       item.checked = true;
-    })
+    });
     this.isDisabled = true;
 
     this.validAddressFields.forEach(item => {
       item.checked = true;
-    })
+    });
     this.isDisabled = true;
   }
 
@@ -117,26 +133,46 @@ export class UserAccountComponent implements OnInit {
     if (searchValue.attributes.formControlName.nodeValue === 'streetInfo') {
       this.streetCounter = this.compareValues(this.addressCopied.street, searchValue.value, this.streetCounter);
       if (this.streetCounter > 0) {
-        this.validAddressFields[0] = { checked: false };
+        this.validAddressFields[0] = { checked: false, value: true};
       } else {
-        this.validAddressFields[0] = { checked: true };
+        this.validAddressFields[0] = { checked: true, value: true };
+      }
+      if (searchValue.value.length === 0) {
+        if (this.streetCounter > 0) {
+          this.validAddressFields[0] = { checked: false, value: false};
+        } else {
+          this.validAddressFields[0] = { checked: true, value: false};
+        }
       }
     } else if (searchValue.attributes.formControlName.nodeValue === 'cityInfo') {
       this.districtCounter = this.compareValues(this.addressCopied.city, searchValue.value, this.districtCounter);
       if (this.districtCounter > 0) {
-        this.validAddressFields[1] = { checked: false };
+        this.validAddressFields[1] = { checked: false, value: true };
       } else {
-        this.validAddressFields[1] = { checked: true };
+        this.validAddressFields[1] = { checked: true, value: true };
+      }
+      if (searchValue.value.length === 0) {
+        if (this.districtCounter > 0) {
+          this.validAddressFields[1] = { checked: false, value: false};
+        } else {
+          this.validAddressFields[1] = { checked: true, value: false};
+        }
       }
     } else if (searchValue.attributes.formControlName.nodeValue === 'postalCodeInfo') {
       this.postalCodeCounter = this.compareValues(this.addressCopied.postalCode, searchValue.value, this.postalCodeCounter);
       if (this.postalCodeCounter > 0) {
-        this.validAddressFields[2] = { checked: false };
+        this.validAddressFields[2] = { checked: false, value: true };
       } else {
-        this.validAddressFields[2] = { checked: true };
+        this.validAddressFields[2] = { checked: true, value: true };
       }
-    }
-    else if (searchValue.attributes.formControlName.nodeValue === 'nameInfo') {
+      if (searchValue.value.length === 0) {
+        if (this.postalCodeCounter > 0) {
+          this.validAddressFields[2] = { checked: false, value: false};
+        } else {
+          this.validAddressFields[2] = { checked: true, value: false};
+        }
+      }
+    } else if (searchValue.attributes.formControlName.nodeValue === 'nameInfo') {
       this.nameCounter = this.compareValues(this.usserCoppied.name, searchValue.value, this.nameCounter);
       if (this.nameCounter > 0) {
         this.validUserFields[0] = { checked: false };
@@ -150,8 +186,7 @@ export class UserAccountComponent implements OnInit {
       } else {
         this.validUserFields[1] = { checked: true };
       }
-    }
-    else if (searchValue.attributes.formControlName.nodeValue === 'peselInfo') {
+    } else if (searchValue.attributes.formControlName.nodeValue === 'peselInfo') {
       this.peselCounter = this.compareValues(this.usserCoppied.pesel, searchValue.value, this.peselCounter);
       if (this.peselCounter > 0) {
         this.validUserFields[2] = { checked: false };
@@ -165,8 +200,7 @@ export class UserAccountComponent implements OnInit {
       } else {
         this.validUserFields[3] = { checked: true };
       }
-    }
-    else if (searchValue.attributes.formControlName.nodeValue === 'emailInfo') {
+    } else if (searchValue.attributes.formControlName.nodeValue === 'emailInfo') {
       this.emailConuter = this.compareValues(this.usserCoppied.email, searchValue.value, this.emailConuter);
       if (this.emailConuter > 0) {
         this.validUserFields[4] = { checked: false };
@@ -181,25 +215,40 @@ export class UserAccountComponent implements OnInit {
         this.validUserFields[5] = { checked: true };
       }
     }
-    let statusButton = true;
-    for (var i = 0; i < this.validUserFields.length; i++) {
+
+    var actualButtonStatus = true;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.validUserFields.length; i++) {
       if (this.validUserFields[i].checked === false) {
-        statusButton = this.isDisabled = false;
+        actualButtonStatus = this.isDisabled = false;
         this.updateUser = true;
         break;
       } else {
         this.isDisabled = true;
+        this.updateUser = false;
       }
     }
-    for (var i = 0; i < this.validAddressFields.length; i++) {
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.validAddressFields.length; i++) {
       if (this.validAddressFields[i].checked === false) {
         this.isDisabled = false;
         this.updateAddress = true;
         break;
       } else {
-        this.isDisabled = statusButton;
+        this.isDisabled = actualButtonStatus;
+        this.updateAddress = false;
       }
     }
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.validAddressFields.length; i++) {
+      if (this.validAddressFields[i].value !== true) {
+        this.isDisabled = true;
+        break;
+      }
+    }
+
   }
 
   compareValues(oryginalValue: string, newValue: string, counterForControl: number): number {
