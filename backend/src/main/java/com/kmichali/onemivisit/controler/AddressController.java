@@ -27,7 +27,7 @@ public class AddressController {
     public ResponseEntity<String> updateAddress(@RequestBody AddressDTO addressDTO){
         Address addressToUpdate = addressService.findByUser(addressDTO.getUserDTO());
         addressService.updateFromDTO(addressDTO,addressToUpdate);
-        return new ResponseEntity<>("Success - address updated correctly.", HttpStatus.CREATED);
+        return new ResponseEntity<>("Success - Address updated correctly.", HttpStatus.CREATED);
     }
 
     @GetMapping("/address/{id}")

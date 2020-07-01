@@ -31,4 +31,14 @@ public class Address implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                '}';
+    }
 }
