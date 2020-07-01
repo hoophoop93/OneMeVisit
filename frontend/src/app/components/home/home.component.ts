@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private navbarService: NavbarService, private visitService: VisitService, private userService: UserService,
-    private notifierService: MyNotifierService, private modalService: ModalService) {
+              private notifierService: MyNotifierService, private modalService: ModalService) {
     this.notifier = this.notifierService;
   }
   ngOnDestroy(): void {
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.isLoggedIn = false;
     this.subscription = this.userService.getLogedUser().subscribe(res => {
       this.user = res;
-    })
+    });
     this.getVisit();
 
   }
@@ -49,8 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.visitService.getVisitsByUserId(this.user.id).subscribe(res => {
       res.forEach(vis => {
         this.visitsForUser.push(vis);
-      })
-    })
+      });
+    });
   }
   deleteVisitClick(visitId) {
     this.openModal('confirm-modal');
@@ -60,8 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.modalService.open(id);
   }
   closeModal(event) {
-    var target = event.target || event.srcElement || event.currentTarget;
-    var idAttr = target.attributes.id.nodeValue;
+    const target = event.target || event.srcElement || event.currentTarget;
+    const idAttr = target.attributes.id.nodeValue;
     if (idAttr === 'yes') {
       this.deleteVisit(this.visitIdToDelte);
     }
@@ -71,11 +71,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   deleteVisit(visitId: number) {
     this.visitService.deleteVisist(visitId).subscribe(res => {
       this.visitsForUser = this.visitsForUser.filter(item => item.id !== visitId);
-      this.notifier.showNotifer("success", res.body);
+      this.notifier.showNotifer('success', res.body);
     },
       (err: HttpErrorResponse) => {
         if (err.status === 400) {
-          this.notifier.showNotifer("error", err.error);
+          this.notifier.showNotifer('error', err.error);
         }
       });
   }

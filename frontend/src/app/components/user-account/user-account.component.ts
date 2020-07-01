@@ -216,7 +216,7 @@ export class UserAccountComponent implements OnInit {
       }
     }
 
-    var actualButtonStatus = true;
+    let actualButtonStatus = true;
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.validUserFields.length; i++) {
       if (this.validUserFields[i].checked === false) {

@@ -78,9 +78,13 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDTO findAddressDtoByUser(User user) {
-        AddressDTO addressDTO = addressMapper.entityToDto(addressRepository.findByUser(user));
-        UserDTO userDto = userMapper.entityToDto(user);
-        addressDTO.setUserDTO(userDto);
+        Address address = addressRepository.findByUser(user);
+        AddressDTO addressDTO = null;
+        if(address != null) {
+            addressDTO = addressMapper.entityToDto(addressRepository.findByUser(user));
+            UserDTO userDto = userMapper.entityToDto(user);
+            addressDTO.setUserDTO(userDto);
+        }
         return addressDTO;
     }
 
