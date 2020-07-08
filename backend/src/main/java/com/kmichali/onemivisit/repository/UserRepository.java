@@ -12,6 +12,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByPesel(String pesel);
 
+    User findByEmail(String email);
+
     @Query("select count(u) from User u where u.pesel=:pesel")
     Long countByPesel(String pesel);
 }

@@ -11,6 +11,8 @@ public interface UserService extends GenericService<User, UserDTO> {
 
     User findByPesel(String pesel);
 
+    UserDTO getUserDTOByEmail(String email);
+
     UserDTO getUserDTOByPesel(String pesel);
 
     boolean countByPesel(String pesel);

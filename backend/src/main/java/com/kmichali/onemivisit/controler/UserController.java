@@ -61,6 +61,10 @@ public class UserController {
         UserDTO user = userService.getUserDTOByPesel(pesel);
         return user;
     }
+    @GetMapping("/checkEmail")
+    public UserDTO checkEmail(@RequestParam(value = "email") String email){
+        return userService.getUserDTOByEmail(email);
+    }
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") long id) {
