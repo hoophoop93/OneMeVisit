@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/fo
 import { UserService } from 'src/app/services/user/user.service';
 import { OauthService } from 'src/app/services/oauth/oauth.service';
 import { NavbarService } from 'src/app/services/navbar/navbar.service';
+import { MyNotifierService } from 'src/app/services/notifier/my-notifier.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { NavbarService } from 'src/app/services/navbar/navbar.service';
 })
 export class LoginComponent implements OnInit {
 
+  readonly notifier: MyNotifierService;
   protected validateForm: FormGroup;
   protected resetPassword: FormGroup;
   protected invalidLogin = false;
@@ -20,12 +22,13 @@ export class LoginComponent implements OnInit {
   protected submittedReset = false;
   protected oauthError: string;
   protected emailToReset: string;
+  protected emailError: string;
   protected visibleResetPanel = true;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService,
-              private navbarService: NavbarService,
+              private navbarService: NavbarService, private notifierService: MyNotifierService,
               private http: UserService, private oauthService: OauthService) {
-
+                this.notifier = this.notifierService;
   }
 
   ngOnInit() {
@@ -72,7 +75,16 @@ export class LoginComponent implements OnInit {
     if (this.resetPassword.invalid) {
       return;
     }
-    console.log('test przycisku');
+    this.userService.getByEmail(this.emailToReset).subscribe(user => {
+      if (user.email !== '') {
+        //TODO
+      }
+    }, err => {
+      if (err.error.status === 500) {
+        this.emailError = 'Email doesn\'t exist';
+      }
+      this.notifier.showNotifer('error', this.emailError);
+    });
   }
   forgotPassBtn() {
     this.visibleResetPanel = !this.visibleResetPanel;

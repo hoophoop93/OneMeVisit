@@ -62,13 +62,16 @@ export class UserService {
   }
 
   getAll(): Observable<Array<User>> {
-    return this.http.get<Array<User>>(this.URL_DB + "users");
+    return this.http.get<Array<User>>(this.URL_DB + 'users');
   }
   getById(userId: string): Observable<User> {
-    return this.http.get<User>(this.URL_DB + "user/" + userId);
+    return this.http.get<User>(this.URL_DB + 'user/' + userId);
   }
   getByPesel(userPesel: string): Observable<User> {
-    return this.http.get<User>(this.URL_DB + "user?pesel=" + userPesel);
+    return this.http.get<User>(this.URL_DB + 'user?pesel=' + userPesel);
+  }
+  getByEmail(userEmail: string): Observable<User> {
+    return this.http.get<User>(this.URL_DB + 'userEmail?email=' + userEmail);
   }
   addUser(user: User) {
     this.userBeh.next(user);
