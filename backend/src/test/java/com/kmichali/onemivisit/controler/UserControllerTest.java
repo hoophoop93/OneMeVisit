@@ -39,7 +39,7 @@ public class UserControllerTest {
     @Test
     public void createUser() {
         User user = new User();
-        user.setId(1L);
+        //user.setId(1L);
 
     }
 

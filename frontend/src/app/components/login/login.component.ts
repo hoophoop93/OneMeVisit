@@ -14,12 +14,17 @@ import { NavbarService } from 'src/app/services/navbar/navbar.service';
 export class LoginComponent implements OnInit {
 
   protected validateForm: FormGroup;
-  protected invalidLogin: boolean = false;
+  protected resetPassword: FormGroup;
+  protected invalidLogin = false;
   protected submitted = false;
+  protected submittedReset = false;
   protected oauthError: string;
+  protected emailToReset: string;
+  protected visibleResetPanel = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private navbarService: NavbarService,
-    private http: UserService, private oauthService: OauthService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService,
+              private navbarService: NavbarService,
+              private http: UserService, private oauthService: OauthService) {
 
   }
 
@@ -28,6 +33,9 @@ export class LoginComponent implements OnInit {
     this.validateForm = this.formBuilder.group({
       pesel: ['', [Validators.required, Validators.minLength(11)]],
       password: ['', Validators.required]
+    });
+    this.resetPassword = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
     });
   }
   onSubmit() {
@@ -46,20 +54,31 @@ export class LoginComponent implements OnInit {
         this.userService.addUser(res);
         this.loginUser();
         this.router.navigate(['home']);
-      })
+      });
 
     }, err => {
-      if (err.error.error_description = 'Bad credentials') {
-        this.oauthError = 'Invalid login or password'
+      if (err.error.error_description === 'Bad credentials') {
+        this.oauthError = 'Invalid login or password';
       }
       console.log(err.error);
     });
   }
   // convenience getter for easy access to form fields
   get fields() { return this.validateForm.controls; }
+  get resetFields() {return this.resetPassword.controls; }
 
+  resetPasswordBtn() {
+    this.submittedReset = true;
+    if (this.resetPassword.invalid) {
+      return;
+    }
+    console.log('test przycisku');
+  }
+  forgotPassBtn() {
+    this.visibleResetPanel = !this.visibleResetPanel;
+  }
   getClass(errorState: boolean, controlName: AbstractControl) {
-    var className = '';
+    let className = '';
     if (controlName.value != null && !errorState && controlName.value.length > 0) {
       className = 'form-control is-valid';
     } else if (errorState) {

@@ -22,7 +22,7 @@ export class RegistrationComponent implements OnInit {
   protected error: string;
   protected peselPattern ='\\d+'
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private notiferService: MyNotifierService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, notiferService: MyNotifierService) {
     this.notifier = notiferService;
   }
 
