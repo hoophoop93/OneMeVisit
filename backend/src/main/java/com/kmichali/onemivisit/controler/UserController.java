@@ -61,9 +61,13 @@ public class UserController {
         UserDTO user = userService.getUserDTOByPesel(pesel);
         return user;
     }
-    @GetMapping("/checkEmail")
-    public UserDTO checkEmail(@RequestParam(value = "email") String email){
-        return userService.getUserDTOByEmail(email);
+    @GetMapping("/userEmail")
+    public UserDTO getUserByEmail(@RequestParam(value = "email") String email) throws Exception {
+        UserDTO user = userService.getUserDTOByEmail(email);
+        if (user.getEmail() == null) {
+            throw new Exception("User not found");
+        }
+        return user;
     }
 
     @DeleteMapping("/delete/{id}")

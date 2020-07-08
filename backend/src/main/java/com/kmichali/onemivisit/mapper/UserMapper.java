@@ -21,13 +21,15 @@ public class UserMapper extends BaseMapper<User, UserDTO> {
     @Override
     public UserDTO entityToDto(User entity) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(entity.getId());
-        userDTO.setName(entity.getName());
-        userDTO.setSurname(entity.getSurname());
-        userDTO.setPesel(entity.getPesel());
-        userDTO.setPhoneNumber(entity.getPhoneNumber());
-        userDTO.setPassword(entity.getPassword());
-        userDTO.setEmail(entity.getEmail());
+        if(entity != null) {
+            userDTO.setId(entity.getId());
+            userDTO.setName(entity.getName());
+            userDTO.setSurname(entity.getSurname());
+            userDTO.setPesel(entity.getPesel());
+            userDTO.setPhoneNumber(entity.getPhoneNumber());
+            userDTO.setPassword(entity.getPassword());
+            userDTO.setEmail(entity.getEmail());
+        }
         return userDTO;
     }
 
