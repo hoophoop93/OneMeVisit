@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
     this.userService.getByEmail(this.emailToReset).subscribe(user => {
       if (user.email !== '') {
         //TODO
+        this.notifier.showNotifer('success', 'New password was sent on email');
       }
     }, err => {
       if (err.error.status === 500) {
